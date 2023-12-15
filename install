@@ -1,0 +1,7 @@
+if [ $# -eq 0 ]; then
+    echo "usage: ./install [OCINT_REPO_DIRECTORY]"
+    exit
+fi
+
+cp "$1"/build/oclint-release/bin/oclint* /usr/local/bin/
+cp -rp "$1"/build/oclint-release/lib/* /usr/local/lib/
