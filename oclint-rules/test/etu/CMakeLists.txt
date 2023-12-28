@@ -1,3 +1,0 @@
-
-BUILD_TEST(TooManyConsecutiveIfStatementsRuleTest
-TooManyConsecutiveIfStatementsRuleTest.cpp)
