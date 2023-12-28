@@ -1,9 +1,4 @@
-# oclint_extensions
-
-## Что это?
-
-Кастомные правила для oclint. Список реализованных правил:
-* слишком много последовательных конструкций if (TooManyConsecutiveIfStatementsRule)
+# oclint_extensions &mdash; кастомные правила для oclint
 
 ## Установка, сборка и использование
 

@@ -143,4 +143,4 @@ MACRO(build_dynamic_rule name)
     install(TARGETS ${name}Rule DESTINATION lib/oclint/rules)
 ENDMACRO(build_dynamic_rule)
 
-BUILD_DYNAMIC_RULE(TooManyConsecutiveIfStatements)
+BUILD_DYNAMIC_RULE(TooLongIfSequence)

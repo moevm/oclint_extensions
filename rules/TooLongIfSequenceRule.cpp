@@ -7,9 +7,10 @@ using namespace std;
 using namespace clang;
 using namespace oclint;
 
-class TooManyConsecutiveIfStatementsRule : public AbstractASTVisitorRule<TooManyConsecutiveIfStatementsRule>
+class TooLongIfSequenceRule : public AbstractASTVisitorRule<TooLongIfSequenceRule>
 {
 private:
+    int max_if_sequence_len;
     size_t getIfComplexity(IfStmt *if_stmt)
     {
         Stmt *else_stmt = if_stmt->getElse();
@@ -21,12 +22,16 @@ private:
     }
 
 public:
-    virtual void setUp() override {}
+    virtual void setUp() override
+    {
+        this->max_if_sequence_len = RuleConfiguration::intForKey("MAX_IF_SEQUENCE_LEN", 5);
+    }
+
     virtual void tearDown() override {}
 
     virtual const string name() const override
     {
-        return "too many consecutive if statements";
+        return "too long if sequence";
     }
 
     virtual int priority() const override
@@ -97,4 +102,4 @@ public:
     }
 };
 
-static RuleSet rules(new TooManyConsecutiveIfStatementsRule());
+static RuleSet rules(new TooLongIfSequenceRule());

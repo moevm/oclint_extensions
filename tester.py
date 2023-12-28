@@ -75,7 +75,7 @@ def main():
             os.system("mv compile_commands.json ../")
 
     for file in files:
-        os.system(f'/bin/sh -c "oclint --rule=TooManyConsecutiveIfStatements "{file}" | grep etu"')
+        os.system(f'/bin/sh -c "oclint --rule=TooLongIfSequence "{file}" | grep etu"')
 
     os.chdir('..')
     os.remove('compile_commands.json')
