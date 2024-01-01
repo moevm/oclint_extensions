@@ -85,7 +85,7 @@ public:
             else {
                 if (first_if == nullptr) continue;
 
-                if (cur_complexity > 5) {
+                if (cur_complexity > this->max_if_sequence_len) {
                     addViolation(first_if, this, toString<size_t>(cur_complexity) + " consecutive if statements is too many.");
                 }
 
@@ -94,7 +94,7 @@ public:
             }
         }
 
-        if (first_if != nullptr && cur_complexity > 5) {
+        if (first_if != nullptr && cur_complexity > this->max_if_sequence_len) {
             addViolation(first_if, this, toString<size_t>(cur_complexity) + " consecutive if statements is too many.");
         }
 
