@@ -1,10 +1,7 @@
-#include <stdio.h>
+#include "obfuscation.h"
+#include "stuff.h"
 
-int main()
-{
-    int x = 0;
-    scanf("%d", &x);
-
+void do_stuff(int x) {
     if (x == 0) {
         puts("Zero");
     }

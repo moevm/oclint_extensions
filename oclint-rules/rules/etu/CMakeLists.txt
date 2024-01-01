@@ -1,3 +1,0 @@
-
-SET(BuildTooManyConsecutiveIfStatementsRule TooManyConsecutiveIfStatements)
-BUILD_DYNAMIC_RULES("${BuildTooManyConsecutiveIfStatementsRule}")
