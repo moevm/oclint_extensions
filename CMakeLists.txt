@@ -118,6 +118,7 @@ LINK_DIRECTORIES(
     ${CMAKE_SOURCE_DIR}/oclint/build/oclint-metrics/lib
     ${CMAKE_SOURCE_DIR}/oclint/build/oclint-rules/lib/helper
     ${CMAKE_SOURCE_DIR}/oclint/build/oclint-rules/lib/util
+    ${CMAKE_SOURCE_DIR}/oclint/build/oclint-rules/lib
     )
 
 MACRO(build_dynamic_rule name)
