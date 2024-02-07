@@ -6,7 +6,6 @@ if [ $# -eq 0 ]; then
 fi
 
 WORK_DIRECTORY=$1
-SRC_FILE=$(find $WORK_DIRECTORY -name "*.c") \
-		 $(find $WORK_DIRECTORY -name "*.cpp")
+SRC_FILE=$(find $WORK_DIRECTORY -name "*.c") $(find $WORK_DIRECTORY -name "*.cpp")
 
 oclint ${@:2} $SRC_FILE --
