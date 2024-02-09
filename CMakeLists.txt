@@ -145,3 +145,4 @@ MACRO(build_dynamic_rule name)
 ENDMACRO(build_dynamic_rule)
 
 BUILD_DYNAMIC_RULE(TooLongIfSequence)
+BUILD_DYNAMIC_RULE(MallocSizeof)
