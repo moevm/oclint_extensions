@@ -71,6 +71,24 @@ namespace oclint {
             addViolation(call_expr, this, "The size of the allocated memory should be \"sizeof(typename) * SOMETHING\"");
         }
 
+        bool CheckSizeof(clang::Expr *expr)
+        {
+            if (expr->getStmtClass() == clang::Stmt::ImplicitCastExprClass) {
+                expr = clang::dyn_cast<clang::ImplicitCastExpr>(expr)->getSubExpr();
+            }
+
+            if (expr->getStmtClass() != clang::Stmt::UnaryExprOrTypeTraitExprClass) {
+                return false;
+            }
+
+            auto *unary = clang::dyn_cast<clang::UnaryExprOrTypeTraitExpr>(expr);
+            clang::UnaryExprOrTypeTrait kind = unary->getKind();
+            if (kind == clang::UnaryExprOrTypeTrait::UETT_SizeOf)
+                return true;
+
+            return false;
+        }
+
         bool VisitCallExpr(clang::CallExpr *call_expr)
         {
             clang::Expr *node = call_expr->getCallee();
@@ -106,9 +124,15 @@ namespace oclint {
                 ReportSizeofViolation(call_expr);
                 return true;
             }
+            
+            auto binop = clang::dyn_cast<clang::BinaryOperator>(arg);
+            clang::BinaryOperator::Opcode opcode = binop->getOpcode();
+            if (opcode != clang::BinaryOperator::Opcode::BO_Mul) {
+                ReportSizeofViolation(call_expr);
+                return true;
+            }
 
-            clang::BinaryOperator::Opcode opcode = clang::dyn_cast<clang::BinaryOperator>(arg)->getOpcode();
-            if (opcode != clang::BinaryOperator::Opcode::BO_Mul)
+            if (!CheckSizeof(binop->getLHS()) && !CheckSizeof(binop->getRHS()))
                 ReportSizeofViolation(call_expr);
 
             return true;
