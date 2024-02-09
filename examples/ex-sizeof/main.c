@@ -7,6 +7,27 @@ int intcmp(const void* a, const void* b) {
     return ia < ib;
 }
 
+#define BLOCK_SIZE 8
+
+int forgot_parens()
+{
+    size_t capacity = BLOCK_SIZE;
+    size_t size = 0;
+
+    char *str = (char *)malloc(capacity * sizeof(char*));
+    while (1) {
+        char c = getchar();
+        if (c == EOF) break;
+
+        if (size == capacity) {
+            str = (char *)realloc(str, capacity + BLOCK_SIZE * sizeof(char*));
+            capacity += BLOCK_SIZE;
+        }
+
+        str[size++] = c;
+    }
+}
+
 int wrong_way()
 {
     int len = 0;
