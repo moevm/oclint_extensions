@@ -146,3 +146,4 @@ ENDMACRO(build_dynamic_rule)
 
 BUILD_DYNAMIC_RULE(TooLongIfSequence)
 BUILD_DYNAMIC_RULE(MallocSizeof)
+BUILD_DYNAMIC_RULE(StringCompare)
