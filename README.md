@@ -1,16 +1,19 @@
-# oclint_extensions &mdash; кастомные правила для oclint
+# OCLint extensions
 
-## Установка, сборка и использование
+## Как собрать и установить?
 
-Требования и зависимости:
-* [Требования и зависимости oclint](https://oclint-docs.readthedocs.io/en/stable/intro/build.html)
-* CMake &mdash; для сборки
-* Python &mdash; для tester.py
-* bear: `sudo apt install bear` &mdash; генератор compile_commands.json
-* ... ??
+В одну строку:
+```
+sudo ./install-deps.sh && ./build-oclint.sh && ./install-oclint.sh && mkdir build && cd build && cmake ../ && cmake --build . && sudo cmake --install . && cd ..
+```
 
+То же самое, только в человекочитаемом виде:
 ```bash
+sudo ./install-deps.sh
+
 ./build-oclint.sh
+./install-oclint.sh
+
 mkdir build
 cd build
 cmake ../
@@ -18,10 +21,10 @@ cmake --build .
 sudo cmake --install .
 ```
 
-## Использование
+Больше информации в [Wiki](https://github.com/moevm/oclint_extensions/wiki/Сборка-и-установка)
 
-tester.py принимает в качестве параметра путь до работы студента (например, Ivanov_Ivan_cw/src), генерирует compile_commands.json и проверяет каждый файл с помощью oclint.
-
-```
-python3 tester.py examples/ex1
-```
+Папка `examples` содержит примеры "проектов" с плохим кодом, а также скрипты `test-gcc.sh` и
+`test-makefile.sh`. В качестве первого аргумента они принимают путь до папки с исходным кодом,
+а последующие аргументы передаются в OCLint, позволяя изменять его поведение. Первый скрипт
+предназначем для проектов, состоящих из одного файла с исходным кодом, а второй скрипт - для
+проектов с использованием Makefile. 
