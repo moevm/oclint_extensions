@@ -1,6 +1,7 @@
 #include "oclint/AbstractASTVisitorRule.h"
 #include "oclint/RuleConfiguration.h"
 #include "oclint/RuleSet.h"
+#include <iostream>
 
 namespace oclint {
     class StringCompareRule : public oclint::AbstractASTVisitorRule<StringCompareRule>
@@ -79,7 +80,7 @@ namespace oclint {
                 return false;
 
             type = type->getPointeeType();
-            return type->isAnyCharacterType();
+            return type->isAnyCharacterType() || type.getAsString() == "wchar_t";
         }
 
         const char *OpcodeAsString(Opcode opcode)
@@ -104,7 +105,7 @@ namespace oclint {
             clang::Expr *left  = binop->getLHS();
             clang::Expr *right = binop->getRHS();
 
-            if (IsString(left) && IsString(right))
+            if (IsString(left) || IsString(right))
                 addViolation(binop, this, std::string("comparing 2 strings by using ") + OpcodeAsString(opcode) + ".");
 
             return true;

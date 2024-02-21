@@ -1,8 +1,30 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <wchar.h>
 
 #define INITIAL_SIZE 8
+
+void wide_strings()
+{
+    wchar_t str1[32] = L"Hello";
+    wchar_t *str2 = wcsdup(L"World");
+    
+    if (str1 == str2) {
+        puts("One");
+    }
+    if (str1 == L"String") {
+        puts("Two");
+    }
+    if (L"String" == str2) {
+        puts("Three");
+    }
+    if (L"Str1" == L"Str2") {
+        puts("Four");
+    }
+
+    free(str2);
+}
 
 void compare_const_and_const()
 {
