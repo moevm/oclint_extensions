@@ -1,11 +1,6 @@
 #include "oclint/AbstractASTVisitorRule.h"
 #include "oclint/RuleConfiguration.h"
 #include "oclint/RuleSet.h"
-#include "oclint/util/StdUtil.h"
-#include "clang/AST/ASTContext.h"
-#include "clang/AST/Attrs.inc"
-#include "clang/AST/Decl.h"
-#include "clang/AST/Stmt.h"
 #include <iostream>
 
 using namespace std;
