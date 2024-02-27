@@ -56,6 +56,7 @@ public:
     bool VisitFunctionDecl(clang::FunctionDecl *func_decl)
     {
         decls.push_back(func_decl);
+        return true;
     }
 };
 
