@@ -1,0 +1,225 @@
+/home/jcdkiki/code/pr-2023-3384/Kozmin_Nikita_lb3/src/main.c: [49, 52] duplicates [27, 30]
+
+...
+                 cnt_chars_sentence++;
+                 sentenses[cnt_sentences-1] = realloc(sentenses[cnt_sentences-1],
+                                                      sizeof(char)*(cnt_chars_sentence+1));
+                 sentenses[cnt_sentences-1][cnt_chars_sentence-1] = cur_char;
+...
+             cnt_chars_sentence++;
+             sentenses[cnt_sentences-1] = realloc(sentenses[cnt_sentences-1],
+                                                  sizeof(char)*(cnt_chars_sentence+1));
+             sentenses[cnt_sentences-1][cnt_chars_sentence-1] = cur_char;
+...
+/home/jcdkiki/code/pr-2023-3384/Kuzmin_Kirill_lb1/src/main.c: [21, 25] duplicates [10, 14]
+
+...
+     int ind = -1;
+     for (int i = 0; i < n; i++){
+         if (arr[i] < 0) {
+             ind = i;
+             break;
+...
+     int ind = -1;
+     for (int i = n-1; i > 0; i--){
+         if (arr[i] < 0) {
+             ind = i;
+             break;
+...
+/home/jcdkiki/code/pr-2023-3384/Usikov_Anton_cw/src/main.c: [31, 35] duplicates [21, 24]
+
+...
+	 T = TextRead();
+	 DelRepStr(&T);
+	 PrintText(&T);
+	 break;
+...
+	 T = TextRead();
+	 DelRepStr(&T);
+	 PrintText(&T);
+	 PrintUpper(&T);
+	 break;
+...
+/home/jcdkiki/code/pr-2023-3384/Usikov_Anton_cw/src/main.c: [43, 47] duplicates [21, 24]
+
+...
+	 T = TextRead();
+	 DelRepStr(&T);
+	 PrintText(&T);
+	 break;
+...
+	 T = TextRead();
+	 DelRepStr(&T);
+	 RemoveNumText(&T);
+	 PrintText(&T);
+	 break;
+...
+/home/jcdkiki/code/pr-2023-3384/Berlet_Maxim_cw/src/main.c: [74, 77] duplicates [69, 72]
+
+...
+         case 0:{
+             print0(strs, counter);
+             clean_memory(strs, counter);
+             break;
+...
+         case 1:
+             colors(strs, &counter);
+             clean_memory(strs, counter);
+             break;
+...
+/home/jcdkiki/code/pr-2023-3384/Rudakov_Aleksandr_lb1/src/main_lb1.c: [30, 33] duplicates [22, 25]
+
+...
+	 if (first>second){
+		 return first;
+	 } else{
+		 return second;
+...
+	 if (first<second){
+		 return first;
+	 } else{
+		 return second;
+...
+/home/jcdkiki/code/pr-2023-3384/Rudakov_Aleksandr_lb1/src/main_lb1.c: [45, 48] duplicates [37, 40]
+
+...
+ void def_max(int arr[],int len){
+	 int maximum=arr[0];
+         for (int i=0;i<len;i++){
+                 maximum=max(maximum,arr[i]);
+...
+ void def_min(int arr[],int len){
+	 int minimum=arr[0];
+         for (int i=0;i<len;i++){
+        	 minimum=min(minimum,arr[i]);
+...
+/home/jcdkiki/code/pr-2023-3384/Traksel_Vitalii_cw/src/getprint.c: [107, 111] duplicates [35, 39]
+
+...
+    		 len += len;
+    		 snt = realloc (snt, len * sizeof(wchar_t));
+    		 if (snt == NULL) {
+    			 wprintf(L"Error: ошибка выделения памяти");
+    			 exit(0);
+...
+    		 len += len;
+    		 wrd = realloc(wrd, len * sizeof(wchar_t *));
+    		 if (wrd == NULL) {
+    			 wprintf(L"Error: ошибка выделения памяти");
+    			 exit(0);
+...
+/home/jcdkiki/code/pr-2023-3384/Traksel_Vitalii_lb1/src/main.c: [13, 17] duplicates [4, 8]
+
+...
+ // максимальное по модулю
+ int abs_max (int input_array[],int input_size){
+ int max = input_array[0];
+ for (int count = 1; count<input_size; count++){
+ if (abs(max) < abs(input_array[count])) max = input_array[count];
+...
+ // минимальное по модулю
+ int abs_min (int input_array[],int input_size){
+ int min = input_array[0];
+ for (int count = 1; count<input_size; count++){
+ if (abs(min) > abs(input_array[count])) min = input_array[count];
+...
+/home/jcdkiki/code/pr-2023-3384/Maksimova_Ekaterina_lb1/src/main.c: [17, 21] duplicates [5, 9]
+
+...
+	 int i = 0;
+	 int mx = arr[0];
+	 for(i; i < size; i++) {
+		 if (arr[i] > mx) {
+			 mx = arr[i];
+...
+	 int i = 0;
+	 int mn = arr[0];
+	 for(i; i < size; i++) {
+		 if(arr[i] < mn) {
+			 mn = arr[i];
+...
+/home/jcdkiki/code/pr-2023-3384/Maksimova_Ekaterina_cw/src/main.c: [39, 43] duplicates [17, 20]
+
+...
+             text = readText();
+             removeEmptySentences(&text);
+             removeCopies(&text);
+             printText(text);
+...
+             text = readText();
+             removeEmptySentences(&text);
+             removeCopies(&text);
+             changeVowels(&text);
+             printText(text);
+...
+/home/jcdkiki/code/pr-2023-3384/Maksimova_Ekaterina_cw/src/main.c: [65, 69] duplicates [17, 20]
+
+...
+             text = readText();
+             removeEmptySentences(&text);
+             removeCopies(&text);
+             printText(text);
+...
+			 text = readText();
+			 removeEmptySentences(&text);
+             removeCopies(&text);
+             countSymbols(&text);
+             printText(text);
+...
+/home/jcdkiki/code/pr-2023-3384/Kozmin_Nikita_cw/src/bananapplesearch.c: [42, 46] duplicates [26, 30]
+
+...
+             if (isnewword && !strncmp(&((*sentences)[i][j]), "banana", 6) &&
+                     ( (*sentences)[i][j+6]==' ' || (*sentences)[i][j+6]==',' || (*sentences)[i][j+6]=='.' )){
+                 if (!isprint){
+                     for (size_t k = 0; k < j; k++){
+                         printf("%c", (*sentences)[i][k]);
+...
+             else if (isnewword && !strncmp(&((*sentences)[i][j]), "apple", 5) &&
+                     ( (*sentences)[i][j+5]==' ' || (*sentences)[i][j+5]==',' || (*sentences)[i][j+5]=='.' )){
+                 if (!isprint){
+                     for (size_t k = 0; k < j; k++){
+                         printf("%c", (*sentences)[i][k]);
+...
+/home/jcdkiki/code/pr-2023-3384/Kozmin_Nikita_cw/src/preprocessing.c: [29, 34] duplicates [21, 25]
+
+...
+     for (size_t i = 0; i < (*cnt_sentences)-1; i++){
+         len_fst = strlen((*sentences)[i]);
+         fst = realloc(fst, sizeof(char)*(len_fst + 1));
+         for (size_t k=0; k < (len_fst+1); k++){
+             fst[k] = tolower((*sentences)[i][k]);
+...
+         for (size_t j = i+1; j < (*cnt_sentences); j++){
+             len_scd = strlen((*sentences)[j]);
+             if (len_fst == len_scd){
+                 scd = realloc(scd, sizeof(char)*(len_scd + 1));
+                 for (size_t k=0; k < (len_scd+1); k++){
+                     scd[k] = tolower((*sentences)[j][k]);
+...
+/home/jcdkiki/code/pr-2023-3384/Kozmin_Nikita_cw/src/menu.c: [46, 49] duplicates [32, 35]
+
+...
+     case 0:
+         cnt_sentences = readtext(&sentences);
+         if (!sentences) return 0;
+         preprocessing(&sentences, &cnt_sentences);
+...
+     case 2:
+         cnt_sentences = readtext(&sentences);
+         if (!sentences) return 0;
+         preprocessing(&sentences, &cnt_sentences);
+...
+/home/jcdkiki/code/pr-2023-3384/Kozmin_Nikita_cw/src/menu.c: [61, 64] duplicates [32, 35]
+
+...
+     case 0:
+         cnt_sentences = readtext(&sentences);
+         if (!sentences) return 0;
+         preprocessing(&sentences, &cnt_sentences);
+...
+     case 4:
+         cnt_sentences = readtext(&sentences);
+         if (!sentences) return 0;
+         preprocessing(&sentences, &cnt_sentences);
+...
