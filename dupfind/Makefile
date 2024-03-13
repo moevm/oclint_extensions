@@ -1,6 +1,6 @@
 .PHONY: all install clean uninstall
 
-CC=g++
+CC = g++
 
 all: dupfind
 
