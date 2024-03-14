@@ -2,11 +2,15 @@
 
 default: help
 
-EXAMPLES = $(wildcard examples/ex-*)
-.PHONY: $(EXAMPLES)
+GCC_EXAMPLES = $(wildcard examples/ex-*)
+MAKE_EXAMPLES = $(wildcard examples/make/ex-*)
+.PHONY: $(GCC_EXAMPLES) $(MAKE_EXAMPLES)
 
-$(EXAMPLES):
+$(GCC_EXAMPLES):
 	examples/test-gcc.sh $@
+
+$(MAKE_EXAMPLES):
+	examples/test-makefile.sh $@
 
 ########
 # HELP #
@@ -24,8 +28,9 @@ help:
 	@echo "    build_rules"
 	@echo "    clean"
 	@echo "=== TARGETS FOR RUNNING EXAMPLES ==="
-	@for x in $(EXAMPLES); do echo "    $$x"; done;
-
+	@for x in $(GCC_EXAMPLES); do echo "    $$x"; done;
+	@for x in $(MAKE_EXAMPLES); do echo "    $$x"; done;
+	
 ########
 # DEPS #
 ########
