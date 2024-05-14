@@ -10,6 +10,10 @@ void wide_strings()
     wchar_t str1[32] = L"Hello";
     wchar_t *str2 = wcsdup(L"World");
     
+    if (str2 == NULL) {
+        abort();
+    }
+    
     if (str1 == str2) {
         puts("One");
     }
@@ -39,6 +43,10 @@ void compare_const_and_const()
 void compare_const_and_not_const()
 {
     char *str = (char*)malloc(1024 * sizeof(char));
+
+    if (str == NULL) {
+        abort();
+    }
 
     scanf("%1023s", str);
     if (str == "Bad!") {

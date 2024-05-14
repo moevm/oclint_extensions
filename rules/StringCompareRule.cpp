@@ -1,6 +1,7 @@
 #include "oclint/AbstractASTVisitorRule.h"
 #include "oclint/RuleConfiguration.h"
 #include "oclint/RuleSet.h"
+#include "clang/Basic/Specifiers.h"
 #include <iostream>
 
 namespace oclint {
@@ -83,6 +84,11 @@ namespace oclint {
             return type->isAnyCharacterType() || type.getAsString() == "wchar_t";
         }
 
+        bool IsNull(clang::Expr *expr)
+        {
+            return expr->isNullPointerConstant(*this->_carrier->getASTContext(), clang::Expr::NPC_ValueDependentIsNotNull);
+        }
+
         const char *OpcodeAsString(Opcode opcode)
         {
             switch (opcode) {
@@ -105,7 +111,7 @@ namespace oclint {
             clang::Expr *left  = binop->getLHS();
             clang::Expr *right = binop->getRHS();
 
-            if (IsString(left) || IsString(right))
+            if (!IsNull(left) && !IsNull(right) && (IsString(left) || IsString(right)))
                 addViolation(binop, this, std::string("comparing 2 strings by using ") + OpcodeAsString(opcode) + ".");
 
             return true;
