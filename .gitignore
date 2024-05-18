@@ -2,3 +2,4 @@ oclint
 build
 .oclint
 compile_commands.json
+.cache
