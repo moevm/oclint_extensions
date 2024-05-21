@@ -37,8 +37,7 @@ help:
 
 .PHONY: install_deps
 install_deps:
-	apt install -y ninja-build cmake bear
-	@echo "install deps: OK"
+	apt install -y ninja-build cmake bear g++
 
 ##########
 # OCLINT #
@@ -51,27 +50,24 @@ oclint:
 	OCLINT_22_02_COMMIT = d776db51c8574df406b2b0dc1b43b0b9b2d86d34
 	
 	git clone https://github.com/oclint/oclint.git oclint
-	@cd oclint
+	cd oclint
 	git reset --hard $OCLINT_22_02_COMMIT
-	@cd ..
-	@echo "clone oclint repo: OK"
-
+	cd ..
+	
 oclint/build/oclint-release/bin/oclint:
-	@cd oclint/oclint-scripts; ./make
-	@echo "build oclint: OK"
-
+	cd oclint/oclint-scripts
+	./make
+	
 build_oclint: oclint oclint/build/oclint-release/bin/oclint
 
 install_oclint: build_oclint
 	cp -r oclint/build/oclint-release/lib/* /usr/local/lib/
 	cp -r oclint/build/oclint-release/bin/* /usr/local/bin/
-	@echo "install oclint: OK"
-
+	
 uninstall_oclint:
 	rm -rf /usr/local/bin/oclint
 	rm -rf /usr/local/lib/oclint
-	@echo "oclint uninstall: OK"
-
+	
 #########
 # RULES #
 #########
@@ -80,21 +76,21 @@ uninstall_oclint:
 
 # build dir
 build:
-	@mkdir build
-	@cd build
+	mkdir build
+	cd build
 	cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 ../
-	@cd ..
-	@echo "build rules: generate make from cmake"
-
+	cd ..
+	
 build_rules: build build_oclint
-	@cd build
-	cmake --build .; cp compile_commands.json ../
-	@cd ..
+	cd build
+	cmake --build .
+	cp compile_commands.json ../
+	cd ..
 
 install_rules: build_rules
-	@cd build
+	cd build
 	cmake --install .
-	@cd ..
+	cd ..
 
 uninstall_rules:
 	xargs rm < build/install_manifest.txt
