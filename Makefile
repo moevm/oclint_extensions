@@ -51,7 +51,7 @@ oclint:
 	
 	git clone https://github.com/oclint/oclint.git oclint
 	cd oclint
-	git reset --hard $OCLINT_22_02_COMMIT
+	git reset --hard $(OCLINT_22_02_COMMIT)
 	cd ..
 	
 oclint/build/oclint-release/bin/oclint:
