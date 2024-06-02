@@ -3,7 +3,7 @@ FROM ubuntu:22.04
 
 
 RUN apt update
-RUN apt install -y make python3 git curl
+RUN apt install -y make python3 git curl xz-utils
 COPY ./ /app
 WORKDIR /app
 

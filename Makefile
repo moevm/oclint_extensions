@@ -4,6 +4,8 @@ default: help
 
 GCC_EXAMPLES = $(wildcard examples/ex-*)
 MAKE_EXAMPLES = $(wildcard examples/make/ex-*)
+OCLINT_22_02_COMMIT = d776db51c8574df406b2b0dc1b43b0b9b2d86d34
+
 .PHONY: $(GCC_EXAMPLES) $(MAKE_EXAMPLES)
 
 $(GCC_EXAMPLES):
@@ -47,8 +49,6 @@ install_deps:
 
 # clone repo (oclint directory)
 oclint:
-	OCLINT_22_02_COMMIT = d776db51c8574df406b2b0dc1b43b0b9b2d86d34
-	
 	git clone https://github.com/oclint/oclint.git oclint
 	cd oclint
 	git reset --hard $(OCLINT_22_02_COMMIT)
