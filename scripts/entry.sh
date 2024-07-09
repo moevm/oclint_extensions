@@ -1,8 +1,14 @@
 #!/bin/bash
 
-DIRECTORY=solution
-SRC_FILES=$(find $DIRECTORY -name "*.c") $(find $DIRECTORY -name "*.cpp")
+cp -r solution tmp
+chmod -R +x tmp
+directory=tmp
 
-echo "Files to check: $SRC_FILES"
+src_files=$(find $directory -name "*.c" && find $directory -name "*.cpp")
 
-oclint $SRC_FILES $@ --
+echo "Files to check:"
+for file in $src_files; do
+    echo "  * " $(realpath -s --relative-to="$directory" "$file")
+done
+
+oclint $src_files $@ --
