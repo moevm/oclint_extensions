@@ -11,5 +11,5 @@
 Примеры запуска проверки:
 
 ```
-docker run --rm -it -v ~PATH/TO/LAB/OR/COURSEWORK:/app/solution:ro oclint_checker
+docker run --rm -it -v PATH/TO/LAB/OR/COURSEWORK:/app/solution:ro oclint_checker
 ```

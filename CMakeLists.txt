@@ -124,11 +124,6 @@ LINK_DIRECTORIES(
 MACRO(build_dynamic_rule name)
     ADD_LIBRARY(${name}Rule SHARED ${CMAKE_SOURCE_DIR}/rules/${name}Rule.cpp)
 
-    #SET_TARGET_PROPERTIES(${name}Rule
-    #    PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/build
-    #               RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/build
-    #    )
-
     TARGET_LINK_LIBRARIES(${name}Rule OCLintAbstractRule)
 
     TARGET_LINK_LIBRARIES(${name}Rule
