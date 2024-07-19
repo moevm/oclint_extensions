@@ -2,7 +2,6 @@
 #include "oclint/RuleConfiguration.h"
 #include "oclint/RuleSet.h"
 #include "clang/Basic/Specifiers.h"
-#include <iostream>
 
 namespace oclint {
     class StringCompareRule : public oclint::AbstractASTVisitorRule<StringCompareRule>
