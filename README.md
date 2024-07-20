@@ -2,7 +2,7 @@
 
 ## Как собрать и установить?
 
-```
+```bash
 ./scripts/build.sh
 ```
 
@@ -10,6 +10,12 @@
 
 Примеры запуска проверки:
 
+```bash
+docker run --rm -it -v ./examples/ex-goto:/app/solution:ro oclint_checker
 ```
-docker run --rm -it -v PATH/TO/LAB/OR/COURSEWORK:/app/solution:ro oclint_checker
+
+Можно передавать аргументы:
+
+```bash
+docker run --rm -it -v ./examples/ex-goto:/app/solution:ro oclint_checker --rule StringCompareRule --rule GotoStatementRule # проверяет код на эти два критерия
 ```
