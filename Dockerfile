@@ -13,4 +13,4 @@ RUN ./scripts/build_rules.sh
 
 COPY . .
 
-ENTRYPOINT ["scripts/entry.sh"]
+ENTRYPOINT ["python3", "scripts/entry.py"]
