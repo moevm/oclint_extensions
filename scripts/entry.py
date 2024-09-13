@@ -27,11 +27,11 @@ def read_line(filename, line):
         file = open(filename, encoding="utf-8") 
         line = file.readlines()[line - 1] 
         file.close()
-        return line.strip()
+        return line.strip().replace('\t', ' ')
     except:
         return "can`t decode utf-8 for some reason, look it up yourself IDK"
     
-def json2msg(text):
+def json2msg(text, at):
     try:
         j = json.loads(text)
     except json.JSONDecodeError:
@@ -41,7 +41,8 @@ def json2msg(text):
     for v in j["violation"]:
         try:
             code = read_line(v["path"], v["startLine"])
-            res.append(Message(v["path"], None, None, v["startLine"], v["startColumn"], v["rule"], v["message"], code))
+            path = os.path.relpath(v["path"], at)
+            res.append(Message(path, None, None, v["startLine"], v["startColumn"], v["rule"], v["message"], code))
         except json.JSONDecodeError:
             pass
     return res
@@ -69,7 +70,7 @@ def test_studwork(path, args):
         eprint(f"stdout: {run.stdout.decode()}")
         eprint("-----------")
 
-    return run.returncode, json2msg(run.stdout.decode())
+    return run.returncode, json2msg(run.stdout.decode(), path)
 
 def test_repo(path, args):
     studworks = [a for a in os.listdir(path) if os.path.isdir(path + '/' + a)]
@@ -108,9 +109,9 @@ def test_dataset(path, args):
     return final_retval, result
 
 def make_csv(msg_list: list[Message]):
-    print('"path","repo","studwork_name","line","column","rule","text","code"')
+    print('path\trepo\tstudwork_name\tline\tcolumn\trule\ttext\tcode')
     for msg in msg_list:
-        print(f'"{msg.path}","{msg.repo}","{msg.studwork_name}","{msg.line}","{msg.column}","{msg.rule}","{msg.text}","{msg.code_snippet}"')
+        print(f'{msg.path}\t{msg.repo}\t{msg.studwork_name}\t{msg.line}\t{msg.column}\t{msg.rule}\t{msg.text}\t{msg.code_snippet}')
 
 def make_pretty(msg_list: list[Message]):
     for msg in msg_list:
