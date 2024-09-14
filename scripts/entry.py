@@ -5,8 +5,13 @@ import subprocess
 import glob
 from dataclasses import dataclass
 import json
+import argparse
 
 EXTENSIONS = [ ".h", ".hpp", ".c", ".cpp" ]
+MAX_PRIORITY = 500
+
+def eprint(*args, **kwargs):
+    print(*args, file=sys.stderr, **kwargs)
 
 @dataclass
 class Message:
@@ -19,37 +24,33 @@ class Message:
     text: str
     code_snippet: str
 
-def eprint(*args, **kwargs):
-    print(*args, file=sys.stderr, **kwargs)
-
 def read_line(filename, line):
-    try:
-        file = open(filename, encoding="utf-8") 
-        line = file.readlines()[line - 1] 
-        file.close()
+    with open(filename, encoding='utf-8', errors='ignore') as f:
+        line = f.readlines()[line - 1] 
         return line.strip().replace('\t', ' ')
-    except:
-        return "can`t decode utf-8 for some reason, look it up yourself IDK"
-    
+
 def json2msg(text, at):
     try:
         j = json.loads(text)
-    except json.JSONDecodeError:
+    except json.JSONDecodeError as e:
+        eprint(f"failed to decode JSON '{text}'")
+        eprint(f"{e.lineno}:{e.colno} {e.msg}")
         return []
 
     res = []
-    for v in j["violation"]:
-        try:
+    try:
+        for v in j["violation"]:
             code = read_line(v["path"], v["startLine"])
             path = os.path.relpath(v["path"], at)
             res.append(Message(path, None, None, v["startLine"], v["startColumn"], v["rule"], v["message"], code))
-        except json.JSONDecodeError:
-            pass
+    except json.JSONDecodeError:
+        eprint(f"failed to get violations from JSON '{text}'")
+        eprint(f"{e.lineno}:{e.colno} {e.msg}")
+        
     return res
 
-MAX_PRIORITY = 500
-
 def test_studwork(path, args):
+    eprint(f"studwork {path}:")
     srcfiles = [x for x in glob.glob(path + '/**/*', recursive=True) if os.path.splitext(x)[1] in EXTENSIONS]
 
     if len(srcfiles) == 0:
@@ -73,6 +74,7 @@ def test_studwork(path, args):
     return run.returncode, json2msg(run.stdout.decode(), path)
 
 def test_repo(path, args):
+    eprint(f"repo {path}:")
     studworks = [a for a in os.listdir(path) if os.path.isdir(path + '/' + a)]
 
     result = []
@@ -91,45 +93,65 @@ def test_repo(path, args):
     return final_retval, result
 
 def test_dataset(path, args):
-    repos = glob.glob(path + '/**/pr-????-????', recursive=True)
-    
+    eprint(f"dataset {path}:")
+    repos = glob.glob(path + '/**/pr-[0-9][0-9][0-9][0-9]-[0-9][0-9][0-9][0-9]', recursive=True)
+
     result = []
     final_retval = 0
     for repo in repos:
         basename = repo[repo.rfind('/')+1:]
         retval, output = test_repo(repo, args)
-        
-        for i in range(len(output)):
-            output[i].repo = basename
-        
+
+        for _, msg in enumerate(output):
+            msg.repo = basename
+
         result.extend(output)
         if retval != 0:
             final_retval = retval
-    
+
     return final_retval, result
 
-def make_csv(msg_list: list[Message]):
+def format_csv(msg_list: list[Message]):
     print('path\trepo\tstudwork_name\tline\tcolumn\trule\ttext\tcode')
     for msg in msg_list:
         print(f'{msg.path}\t{msg.repo}\t{msg.studwork_name}\t{msg.line}\t{msg.column}\t{msg.rule}\t{msg.text}\t{msg.code_snippet}')
 
-def make_pretty(msg_list: list[Message]):
+def format_pretty(msg_list: list[Message]):
     for msg in msg_list:
         print(f"{msg.path}:{msg.line}:{msg.column} [{msg.rule}] {msg.text}")
 
-PRINT_FUNCTIONS = { "pretty": make_pretty, "csv": make_csv }
-TEST_FUNCTIONS = { "studwork": test_studwork, "repo": test_repo, "dataset": test_dataset }
-USAGE_STR = "usage: python3 entry.py {studwork/repo/dataset} {pretty/csv} [additional args for oclint...]"
+FORMAT_FUNCTIONS = {
+    "pretty": format_pretty,
+    "csv": format_csv
+}
+
+TEST_FUNCTIONS = {
+    "studwork": test_studwork,
+    "repo": test_repo,
+    "dataset": test_dataset
+}
+
+def split_argv(argv: list):
+    if "--" in argv:
+        return argv[0:argv.index("--")], argv[argv.index("--")+1:]
+    return argv, []
 
 def main():
     copytree("/app/solution/", "/app/tmp/")
 
-    if (len(sys.argv) < 3) or (sys.argv[1] not in TEST_FUNCTIONS) or (sys.argv[2] not in PRINT_FUNCTIONS):
-        print(USAGE_STR)
-        return 1
+    parser = argparse.ArgumentParser()
 
-    retval, output = TEST_FUNCTIONS[sys.argv[1]]("/app/tmp", sys.argv[3:])
-    PRINT_FUNCTIONS[sys.argv[2]](output)
+    parser.add_argument("--format", "-f", type=str, choices=FORMAT_FUNCTIONS.keys(), default="pretty")
+    parser.add_argument("--test", "-t", type=str, choices=TEST_FUNCTIONS.keys(), required=True)
+
+    argv, oclint_argv = split_argv(sys.argv[1:])
+    args = parser.parse_args(argv)
+    format_func = FORMAT_FUNCTIONS[args.format]
+    test_func = TEST_FUNCTIONS[args.test]
+
+    retval, data = test_func("/app/tmp", oclint_argv)
+    format_func(data)
+
     return retval
 
 if __name__ == "__main__":
