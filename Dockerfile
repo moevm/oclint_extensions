@@ -6,4 +6,4 @@ WORKDIR /app
 COPY ./ ./
 RUN ./scripts/get_oclint.sh && ./scripts/build_rules.sh && rm -rf /var/lib/apt/lists/*
 
-ENTRYPOINT ["scripts/entry.sh"]
+ENTRYPOINT ["python3", "scripts/entry.py"]

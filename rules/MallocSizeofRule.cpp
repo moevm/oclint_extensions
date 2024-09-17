@@ -68,7 +68,7 @@ namespace oclint {
 
         void ReportSizeofViolation(clang::CallExpr *call_expr)
         {
-            addViolation(call_expr, this, "The size of the allocated memory should be \"sizeof(typename) * SOMETHING\"");
+            addViolation(call_expr, this, "The size of the allocated memory should be 'sizeof(typename) * SOMETHING'");
         }
 
         bool CheckSizeof(clang::Expr *expr)
@@ -120,6 +120,10 @@ namespace oclint {
 
             clang::Expr *arg = call_expr->getArg(arg_index);
             
+            if (CheckSizeof(arg)) {
+                return true;
+            }
+
             if (arg->getStmtClass() != clang::Stmt::BinaryOperatorClass) {
                 ReportSizeofViolation(call_expr);
                 return true;
