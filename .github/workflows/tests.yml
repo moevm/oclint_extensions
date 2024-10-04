@@ -1,0 +1,35 @@
+name: Tests
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+
+  smoke-test:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Build app
+      run: ./scripts/build.sh
+
+    - name: Run test
+      run: docker run --rm -it -v ./examples/ex-goto:/app/solution:ro oclint_checker --rule StringCompareRule --rule GotoStatementRule
+
+    - name: Check if out.csv exists
+      run: ls out.csv
+
+    - name: Fail if out.csv does not exist
+      if: failure()
+      run: exit 1
+
+    - name: Upload test results
+      uses: actions/upload-artifact@v4
+      with:
+        name: test-results
+        path: out.csv
