@@ -19,12 +19,12 @@ jobs:
       run: ./scripts/build.sh
 
     - name: Run test
-      run: docker run --rm -it -v ./examples/ex-goto:/app/solution:ro oclint_checker --rule StringCompareRule --rule GotoStatementRule
+      run: docker run --rm -v $(pwd)/examples/:/app/solution/:ro oclint_checker dataset csv > report.csv
 
-    - name: Check if out.csv exists
-      run: ls out.csv
+    - name: Check if report.csv exists
+      run: ls report.csv
 
-    - name: Fail if out.csv does not exist
+    - name: Fail if report.csv does not exist
       if: failure()
       run: exit 1
 
@@ -32,4 +32,4 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: test-results
-        path: out.csv
+        path: report.csv
