@@ -22,7 +22,7 @@ jobs:
       run: docker build -t oclint_checker_test -f Dockerfile_test ./
 
     - name: Run test
-      run: docker run --rm -t -v ${{ github.workspace }}/examples/:/app/solution/ oclint_checker_test --test studwork --format csv > report.csv
+      run: docker run --rm -t oclint_checker_test --test studwork --format csv > report.csv
 
     - name: Check if report.csv exists
       run: ls report.csv
