@@ -10,20 +10,21 @@ jobs:
 
   smoke-test:
 
-    runs-on: ubuntu-latest
+    runs-on: ubuntu:22.04
 
     steps:
     - uses: actions/checkout@v4
 
-    - name: List directory contents
-      run: ls -la ${{ github.workspace }}/examples
-
-    - name: Build app
-      run: ./scripts/build.sh
+    - name: Install dependencies
+      run: |
+        apt update
+        apt install -y ninja-build cmake bear g++ git python3 curl xz-utils zlib1g-dev
+        ./scripts/get_oclint.sh
+        ./scripts/build_rules.sh
+        rm -rf /var/lib/apt/lists/*
 
     - name: Run test
-      run: docker run --rm -t -v ${{ github.workspace }}/examples/:/app/solution/ oclint_checker --test studwork --format csv > report.csv
-        #docker run --rm -t -v $(pwd)/examples/:/app/solution/ oclint_checker --test studwork --format csv > report.csv
+      run: python3 scripts/entry.py --test studwork --format csv > report.csv
 
     - name: Check if report.csv exists
       run: ls report.csv
