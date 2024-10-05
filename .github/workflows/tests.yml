@@ -15,8 +15,8 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Show files
-      run: ls $(pwd)
+    - name: List directory contents
+      run: ls -la $(pwd)/examples/
 
     - name: Build app
       run: ./scripts/build.sh
