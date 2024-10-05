@@ -19,7 +19,7 @@ jobs:
       run: docker build -t oclint_checker -f Dockerfile ./
 
     - name: Run test
-      run: docker run --rm -t oclint_checker --test studwork --format csv > report.csv || echo "Ok"
+      run: docker run --rm -t -v $(pwd)/examples/:/app/solution/:ro oclint_checker --test studwork --format csv > report.csv || echo "Ok"
 
     - name: Check if report.csv exists
       run: ls report.csv
