@@ -22,7 +22,7 @@ jobs:
       run: ./scripts/build.sh
 
     - name: Run test
-      run: docker run --rm -t -v $(pwd)/examples/:/app/solution/:ro oclint_checker --test studwork --format csv > report.csv
+      run: docker run --rm -t -v $(pwd)/examples/:/app/solution/ oclint_checker --test studwork --format csv > report.csv
 
     - name: Check if report.csv exists
       run: ls report.csv
