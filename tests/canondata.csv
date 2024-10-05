@@ -1,0 +1,41 @@
+studwork /app/tmp:1
+path	repo	studwork_name	line	column	rule	text	code
+make/ex-makefile/include/stuff.h	None	None	4	1	only main function	all logic inside single function	void do_stuff(int x);
+make/ex-makefile/include/stuff.h	None	None	4	15	short variable name	Length of variable name `x` is 1, which is shorter than the threshold of 3	void do_stuff(int x);
+ex-if/main.c	None	None	3	1	high npath complexity	NPath Complexity Number 1024 exceeds limit of 200	void simple_ifs()
+ex-if/main.c	None	None	3	1	high cyclomatic complexity	Cyclomatic Complexity Number 11 exceeds limit of 10	void simple_ifs()
+ex-if/main.c	None	None	80	1	high cyclomatic complexity	Cyclomatic Complexity Number 13 exceeds limit of 10	void almost_complex_ifs()
+ex-if/main.c	None	None	80	1	high ncss method	Method of 35 non-commenting source statements exceeds limit of 30	void almost_complex_ifs()
+ex-if/main.c	None	None	8	2	too long if sequence	10 consecutive if statements is too many.	if (option == 0) {
+ex-if/main.c	None	None	45	2	short variable name	Length of variable name `x` is 1, which is shorter than the threshold of 3	int x = 0;
+ex-if/main.c	None	None	77	9	short variable name	Length of variable name `a` is 1, which is shorter than the threshold of 3	int gcd(int a, int b);
+ex-if/main.c	None	None	77	16	short variable name	Length of variable name `b` is 1, which is shorter than the threshold of 3	int gcd(int a, int b);
+ex-if/main.c	None	None	78	9	short variable name	Length of variable name `a` is 1, which is shorter than the threshold of 3	int lcm(int a, int b);
+ex-if/main.c	None	None	78	16	short variable name	Length of variable name `b` is 1, which is shorter than the threshold of 3	int lcm(int a, int b);
+ex-if/main.c	None	None	82	5	short variable name	Length of variable name `x` is 1, which is shorter than the threshold of 3	int x, y;
+ex-if/main.c	None	None	82	5	short variable name	Length of variable name `y` is 1, which is shorter than the threshold of 3	int x, y;
+ex-sizeof/main.c	None	None	23	27	no sizeof inside malloc/realloc	The size of the allocated memory should be 'sizeof(typename) * SOMETHING'	str = (char *)realloc(str, capacity + BLOCK_SIZE * sizeof(char));
+ex-sizeof/main.c	None	None	37	17	no sizeof inside malloc/realloc	The size of the allocated memory should be 'sizeof(typename) * SOMETHING'	arr = (int*)malloc(4 * len); // this is bad
+ex-sizeof/main.c	None	None	46	17	no sizeof inside malloc/realloc	The size of the allocated memory should be 'sizeof(typename) * SOMETHING'	arr = (int*)realloc(arr, len * 4); // this is bad
+ex-sizeof/main.c	None	None	85	5	unused local variable	The local variable 'result' is unused.	int result = right_way();
+ex-sizeof/main.c	None	None	4	12	short variable name	Length of variable name `a` is 1, which is shorter than the threshold of 3	int intcmp(const void* a, const void* b) {
+ex-sizeof/main.c	None	None	4	27	short variable name	Length of variable name `b` is 1, which is shorter than the threshold of 3	int intcmp(const void* a, const void* b) {
+ex-sizeof/main.c	None	None	5	5	short variable name	Length of variable name `ia` is 2, which is shorter than the threshold of 3	int ia = *(const int*)a;
+ex-sizeof/main.c	None	None	6	5	short variable name	Length of variable name `ib` is 2, which is shorter than the threshold of 3	int ib = *(const int*)b;
+ex-sizeof/main.c	None	None	19	9	short variable name	Length of variable name `c` is 1, which is shorter than the threshold of 3	char c = getchar();
+ex-global/main.cpp	None	None	4	1	declaration of global variable	using static local or global variable 'bad_glob_var'	int bad_glob_var = 0;
+ex-global/main.cpp	None	None	13	2	declaration of global variable	using static local or global variable 'bad_static_var1'	static int bad_static_var1 = 0, bad_static_var2 = 0;
+ex-global/main.cpp	None	None	13	2	declaration of global variable	using static local or global variable 'bad_static_var2'	static int bad_static_var1 = 0, bad_static_var2 = 0;
+ex-global/main.cpp	None	None	14	2	declaration of global variable	using static local or global variable 'bad_static_const'	static const int bad_static_const = 13;
+ex-global/main.cpp	None	None	15	2	declaration of global variable	using static local or global variable 'bad_vec'	static vec3<float> bad_vec { 0.f, 0.f, 0.f };
+ex-goto/main.cpp	None	None	9	14	goto statement		if (x != 2) goto failed;
+ex-goto/main.cpp	None	None	6	2	short variable name	Length of variable name `x` is 1, which is shorter than the threshold of 3	int x;
+ex-only-main/main.c	None	None	5	5	short variable name	Length of variable name `c` is 1, which is shorter than the threshold of 3	int c = 0;
+ex-string-compare/main.c	None	None	17	9	using operators to compare strings	comparing 2 strings by using '=='.	if (str1 == str2) {
+ex-string-compare/main.c	None	None	20	9	using operators to compare strings	comparing 2 strings by using '=='.	if (str1 == L"String") {
+ex-string-compare/main.c	None	None	23	9	using operators to compare strings	comparing 2 strings by using '=='.	if (L"String" == str2) {
+ex-string-compare/main.c	None	None	35	9	using operators to compare strings	comparing 2 strings by using '=='.	if ("String1" == "String2") {
+ex-string-compare/main.c	None	None	38	14	using operators to compare strings	comparing 2 strings by using '!='.	else if ("String3" != "String4") {
+ex-string-compare/main.c	None	None	52	9	using operators to compare strings	comparing 2 strings by using '=='.	if (str == "Bad!") {
+ex-string-compare/main.c	None	None	55	14	using operators to compare strings	comparing 2 strings by using '=='.	else if ("Awful!" == str) {
+ex-string-compare/main.c	None	None	78	13	using operators to compare strings	comparing 2 strings by using '=='.	if (arr[0] == arr[i])               // bad
