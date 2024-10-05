@@ -35,4 +35,4 @@ jobs:
         path: report.csv
 
     - name: Fail if report.csv is different from expected data
-      run: cmp --silent tests/canondata.csv report.csv  || exit 1
+      run: cmp --silent tests/canondata.csv report.csv
