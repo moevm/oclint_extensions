@@ -16,7 +16,7 @@ jobs:
     - uses: actions/checkout@v4
 
     - name: List directory contents
-      run: ls -la $(pwd)/examples/
+      run: ls -la ${{ github.workspace }}/examples
 
     - name: Build app
       run: ./scripts/build.sh
