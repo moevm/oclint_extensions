@@ -4,6 +4,8 @@ RUN apt update && apt install -y ninja-build cmake bear g++ git python3 curl xz-
 WORKDIR /app
 
 COPY ./ ./
+COPY ./examples ./solution/
+
 RUN ./scripts/get_oclint.sh && ./scripts/build_rules.sh && rm -rf /var/lib/apt/lists/*
 
 ENTRYPOINT ["python3", "scripts/entry.py"]
