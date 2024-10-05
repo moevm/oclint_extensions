@@ -15,14 +15,11 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: List directory contents
-      run: ls -la ${{ github.workspace }}/examples
-
     - name: Build app
       run: docker build -t oclint_checker_test -f Dockerfile_test ./
 
     - name: Run test
-      run: docker run --rm -t oclint_checker_test --test studwork --format csv > report.csv
+      run: docker run --rm -t oclint_checker_test --test studwork --format csv
 
     - name: Check if report.csv exists
       run: ls report.csv
