@@ -13,7 +13,7 @@ MAX_PRIORITY = 500
 def eprint(*args, **kwargs):
     print(*args, file=sys.stderr, **kwargs)
 
-@dataclass
+@dataclass(order=True)
 class Message:
     path: str
     repo: str | None
@@ -26,7 +26,7 @@ class Message:
 
 def read_line(filename, line):
     with open(filename, encoding='utf-8', errors='ignore') as f:
-        line = f.readlines()[line - 1] 
+        line = f.readlines()[line - 1]
         return line.strip().replace('\t', ' ')
 
 def json2msg(text, at):
@@ -46,7 +46,7 @@ def json2msg(text, at):
     except json.JSONDecodeError:
         eprint(f"failed to get violations from JSON '{text}'")
         eprint(f"{e.lineno}:{e.colno} {e.msg}")
-        
+
     return res
 
 def test_studwork(path, args):
@@ -82,7 +82,7 @@ def test_repo(path, args):
 
     for work in studworks:
         retval, output = test_studwork(path + '/' + work, args)
-        
+
         for i in range(len(output)):
             output[i].studwork_name = work
 
@@ -113,7 +113,7 @@ def test_dataset(path, args):
 
 def format_csv(msg_list: list[Message]):
     print('path\trepo\tstudwork_name\tline\tcolumn\trule\ttext\tcode')
-    for msg in msg_list:
+    for msg in sorted(msg_list):
         print(f'{msg.path}\t{msg.repo}\t{msg.studwork_name}\t{msg.line}\t{msg.column}\t{msg.rule}\t{msg.text}\t{msg.code_snippet}')
 
 def format_pretty(msg_list: list[Message]):
