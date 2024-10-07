@@ -24,6 +24,9 @@ jobs:
     - name: Check if report.csv exists
       run: ls report.csv
 
+    - name: Show report.csv
+      run: cat report.csv
+
     - name: Fail if report.csv does not exist
       if: failure()
       run: exit 1
