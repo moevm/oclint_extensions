@@ -35,7 +35,9 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: test-results
-        path: report.csv
+        path: |
+          report.csv
+          tests/canondata.csv
 
     - name: Fail if report.csv is different from expected data
       run: cmp tests/canondata.csv report.csv
