@@ -12,7 +12,7 @@ namespace oclint {
         virtual void tearDown() override
         {
             if (decls.size() == 1) {
-                addViolation(decls[0], this, "all logic inside single function");
+                addViolation(decls[0], this, "only main function");
             }
         }
 

@@ -10,7 +10,7 @@ namespace oclint {
 
         virtual const std::string name() const override
         {
-            return "declaration of global variable";
+            return "global variable";
         }
 
         virtual int priority() const override

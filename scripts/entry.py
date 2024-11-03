@@ -1,3 +1,5 @@
+#!/bin/python3
+
 import sys
 import os
 from shutil import copytree
@@ -6,6 +8,7 @@ import glob
 from dataclasses import dataclass
 import json
 import argparse
+import atexit
 
 EXTENSIONS = [ ".h", ".hpp", ".c", ".cpp" ]
 MAX_PRIORITY = 500
@@ -33,7 +36,7 @@ def json2msg(text, at):
     try:
         j = json.loads(text)
     except json.JSONDecodeError as e:
-        eprint(f"failed to decode JSON '{text}'")
+        eprint(f"failed to decode JSON at {at}: '{text}'")
         eprint(f"{e.lineno}:{e.colno} {e.msg}")
         return []
 
@@ -50,7 +53,7 @@ def json2msg(text, at):
     return res
 
 def test_studwork(path, args):
-    eprint(f"studwork {path}:")
+    #eprint(f"studwork {path}:")
     srcfiles = [x for x in glob.glob(path + '/**/*', recursive=True) if os.path.splitext(x)[1] in EXTENSIONS]
 
     if len(srcfiles) == 0:
@@ -69,6 +72,7 @@ def test_studwork(path, args):
         eprint(f"additional args passed: {args}")
         eprint(f"srcfiles detected: {srcfiles}")
         eprint(f"stdout: {run.stdout.decode()}")
+        eprint(f"stderr: {run.stderr.decode()}")
         eprint("-----------")
 
     return run.returncode, json2msg(run.stdout.decode(), path)
@@ -83,8 +87,8 @@ def test_repo(path, args):
     for work in studworks:
         retval, output = test_studwork(path + '/' + work, args)
 
-        for i in range(len(output)):
-            output[i].studwork_name = work
+        for _, msg in enumerate(output):
+            msg.studwork_name = work
 
         result.extend(output)
         if retval != 0:
@@ -136,20 +140,26 @@ def split_argv(argv: list):
         return argv[0:argv.index("--")], argv[argv.index("--")+1:]
     return argv, []
 
-def main():
-    copytree("/app/solution/", "/app/tmp/")
+def cleanup():
+    os.system(f"rm -rf ./tmp/")
 
+def main():
     parser = argparse.ArgumentParser()
 
+    parser.add_argument("--input", "-i", type=str, default="/app/solution/")
     parser.add_argument("--format", "-f", type=str, choices=FORMAT_FUNCTIONS.keys(), default="pretty")
     parser.add_argument("--test", "-t", type=str, choices=TEST_FUNCTIONS.keys(), required=True)
 
     argv, oclint_argv = split_argv(sys.argv[1:])
     args = parser.parse_args(argv)
+
+    copytree(args.input, "./tmp/")
+    atexit.register(cleanup)
+    
     format_func = FORMAT_FUNCTIONS[args.format]
     test_func = TEST_FUNCTIONS[args.test]
 
-    retval, data = test_func("/app/tmp", oclint_argv)
+    retval, data = test_func("./tmp/", oclint_argv)
     format_func(data)
 
     return retval

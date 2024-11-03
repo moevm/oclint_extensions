@@ -14,7 +14,7 @@ namespace oclint {
 
         virtual const std::string name() const override
         {
-            return "no sizeof inside malloc/realloc";
+            return "malloc sizeof";
         }
 
         virtual int priority() const override
