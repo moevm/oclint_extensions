@@ -15,7 +15,7 @@ namespace oclint {
 
         virtual const std::string name() const override
         {
-            return "using operators to compare strings";
+            return "string compare";
         }
 
         virtual int priority() const override

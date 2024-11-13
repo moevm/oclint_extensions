@@ -4,3 +4,9 @@ build
 compile_commands.json
 report.csv
 .cache
+
+Dockerfile
+README.md
+.gitignore
+.git
+.github
