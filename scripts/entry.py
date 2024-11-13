@@ -53,7 +53,6 @@ def json2msg(text, at):
     return res
 
 def test_studwork(path, args):
-    #eprint(f"studwork {path}:")
     srcfiles = [x for x in glob.glob(path + '/**/*', recursive=True) if os.path.splitext(x)[1] in EXTENSIONS]
 
     if len(srcfiles) == 0:
@@ -87,7 +86,7 @@ def test_repo(path, args):
     for work in studworks:
         retval, output = test_studwork(path + '/' + work, args)
 
-        for _, msg in enumerate(output):
+        for msg in output:
             msg.studwork_name = work
 
         result.extend(output)
@@ -106,7 +105,7 @@ def test_dataset(path, args):
         basename = repo[repo.rfind('/')+1:]
         retval, output = test_repo(repo, args)
 
-        for _, msg in enumerate(output):
+        for msg in output:
             msg.repo = basename
 
         result.extend(output)

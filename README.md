@@ -17,30 +17,35 @@
 Примеры запуска проверки:
 
 * Проверка на датасете
-
 ```bash
-docker run --rm -v ~/code/dataset_pr-cs/:/app/solution/:ro oclint_checker --test dataset --format csv 1> report.csv
+docker run --rm -v ~/code/dataset_pr-cs/:/app/solution/:ro oclint_checker \
+    --test dataset --format csv 1> report.csv
 ```
 
 * Проверка репозитория
 ```bash
-docker run --rm -v ~/code/pr-2024-3384:/app/solution/:ro oclint_checker --test repo --format csv 1> report.csv
+docker run --rm -v ./pr-2024-3384:/app/solution/:ro oclint_checker \
+    --test repo --format csv 1> report.csv
 ```
 
 * Проверка студенческой работы
 ```bash
-docker run --rm -v ~/code/pr-2024-3384/Kashechkin_Oleg_lb1/:/app/solution/:ro oclint_checker --test studwork --format csv 1> report.csv
+docker run --rm -v ./Kashechkin_Oleg_lb1/:/app/solution/:ro oclint_checker \
+    --test studwork --format csv 1> report.csv
 ```
 
 * Проверка теста из `examples`:
 ``` bash
-docker run --rm -v ./examples/ex-string-compare/:/app/solution/:ro oclint_checker --test studwork --format csv 1> report.csv
+docker run --rm -v ./examples/ex-string-compare/:/app/solution/:ro oclint_checker \
+    --test studwork --format csv 1> report.csv
 ```
 С помощью `--` можно разделить аргументы. Первая половина пойдет нашему oclint_checker'у, вторая половина пойдет самому oclint'у.
 Так можно изменять поведение oclint'а. Например:
 
 ```bash
-docker run --rm -v ~/code/dataset_pr-cs/PR_dataset/autumn/pr-2023-3384/:/app/solution/:ro oclint_checker --test repo --format csv -- 1> report.csv
+docker run --rm -v ./pr-2023-3384/:/app/solution/:ro oclint_checker \
+    --test repo --format csv -- --rule MallocSizeof --rule StringCompare \
+    --rc=LONG_METHOD=100 1> report.csv
 ```
 
 ## Разработка
