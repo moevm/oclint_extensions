@@ -139,6 +139,7 @@ namespace oclint {
                 clang::IfStmt *if_stmt = clang::dyn_cast<clang::IfStmt>(chain);
                 if (!areStatementsSimilar(clang::dyn_cast<clang::IfStmt>(first_if)->getCond(), if_stmt->getCond())) {
                     this->endSequence();
+                    break;
                 }
                 
                 this->cur_complexity++;
