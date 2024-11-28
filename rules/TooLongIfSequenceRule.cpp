@@ -8,7 +8,7 @@ namespace oclint {
     {
     private:
         int max_if_sequence_len;
-        clang::Stmt *first_if;
+        clang::IfStmt *first_if;
         size_t cur_complexity;
 
         struct {
@@ -125,29 +125,47 @@ namespace oclint {
             cur_complexity = 0;
         }
 
+        clang::IfStmt *getNext(clang::IfStmt *if_stmt)
+        {
+            clang::Stmt *stmt = if_stmt->getElse();
+
+            if (stmt == nullptr) {
+                return nullptr;
+            }
+
+            if (stmt->getStmtClass() == clang::Stmt::IfStmtClass) {
+                return clang::dyn_cast<clang::IfStmt>(stmt);
+            }
+            
+            // i guess there is no such thing as stmt->children.size() in oclint...
+            if (stmt->getStmtClass() == clang::Stmt::CompoundStmtClass
+                && (stmt->child_begin() != stmt->child_end() && ++stmt->child_begin() == stmt->child_end())
+                && stmt->child_begin()->getStmtClass() == clang::Stmt::IfStmtClass
+            ) {
+                addViolation(
+                    if_stmt,
+                    this,
+                    "using compound else statement for a single if"
+                );
+            }
+
+            return nullptr;
+        }
+
         void visitIfElseChain(clang::IfStmt *head)
         {
-            clang::Stmt *chain = head;
-            while (true) {
-                if (first_if == nullptr)
-                    first_if = chain;
-                
-                if (chain->getStmtClass() != clang::Stmt::IfStmtClass) {
-                    break;
-                }
-
-                clang::IfStmt *if_stmt = clang::dyn_cast<clang::IfStmt>(chain);
-                if (!areStatementsSimilar(clang::dyn_cast<clang::IfStmt>(first_if)->getCond(), if_stmt->getCond())) {
+            if (first_if == nullptr)
+                first_if = head;
+            
+            clang::IfStmt *cur = head;
+            while (cur != nullptr) {
+                if (!areStatementsSimilar(first_if->getCond(), cur->getCond())) {
                     this->endSequence();
-                    break;
+                    first_if = cur;
                 }
                 
                 this->cur_complexity++;
-
-                if (if_stmt->getElse() == nullptr) {
-                    break;
-                }
-                chain = if_stmt->getElse();
+                cur = getNext(cur);
             }
         }
 
