@@ -99,6 +99,41 @@ void almost_complex_ifs()
     else if (x == 6) printf("x is 6\n");
 }
 
+void weird_ifs()
+{
+    int x = 200;
+
+    if (x > 1000) {
+        x = 1000;
+    }
+    else {
+        if (x > 500) {
+            x = 500;
+        }
+        else if (x > 250) {
+            x = 250;
+        }
+        else {
+            if (x > 200) {
+                x = 200;
+            }
+            else {
+                if (x > 100) {
+                    x = 100;
+                }
+                else if (x > 50) {
+                    x = 50;
+                }
+                else {
+                    if (x > 30) {
+                        x = 30;
+                    }
+                }
+            }
+        }
+    }
+}
+
 int main()
 {
     simple_ifs();
