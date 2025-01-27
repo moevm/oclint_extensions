@@ -24,6 +24,9 @@ jobs:
     - name: Check if report.csv exists
       run: ls report.csv
 
+    - name: Check if report.csv is valid
+      run: awk 'BEGIN{FS=OFS="\t"} NF!=8{print "not enough fields" }' report.csv
+
     - name: Show report.csv
       run: cat report.csv
 
