@@ -10,7 +10,7 @@ jobs:
 
   smoke-test:
 
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
 
     steps:
     - uses: actions/checkout@v4
@@ -42,5 +42,5 @@ jobs:
           tests/canondata.csv
 
     # cannot understand why comparison fails
-    # - name: Fail if report.csv is different from expected data
-    #   run: cmp tests/canondata.csv report.csv
+    - name: Fail if report.csv is different from expected data
+      run: cmp tests/canondata.csv report.csv
