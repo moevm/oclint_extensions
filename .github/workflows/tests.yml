@@ -10,7 +10,7 @@ jobs:
 
   smoke-test:
 
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
     - uses: actions/checkout@v4
@@ -26,6 +26,9 @@ jobs:
 
     - name: Show report.csv
       run: cat report.csv
+
+    - name: Check if report.csv is valid
+      run: awk 'BEGIN{FS=OFS="\t"} NF!=8{print "not enough fields"; err = 1}  END {exit err}' report.csv
 
     - name: Upload test results
       uses: actions/upload-artifact@v4
