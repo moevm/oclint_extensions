@@ -4,12 +4,11 @@ set -e
 
 rm -rf oclint
 
-OCLINT_22_02_COMMIT=d776db51c8574df406b2b0dc1b43b0b9b2d86d34
-git clone --single-branch https://github.com/oclint/oclint.git oclint
-cd oclint
-git reset --hard $OCLINT_22_02_COMMIT
+# --branch also use tag
+OCLINT_TAG=v22.02
+git clone --single-branch --depth 1 --branch $OCLINT_TAG https://github.com/oclint/oclint.git oclint
 
-cd oclint-scripts
+cd oclint/oclint-scripts
 ./make
 
 cd ..
