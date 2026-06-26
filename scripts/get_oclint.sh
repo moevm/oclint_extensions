@@ -5,7 +5,7 @@ set -e
 rm -rf oclint
 
 # --branch also use tag
-OCLINT_TAG=v22.02
+OCLINT_TAG=v26.02
 git clone --single-branch --depth 1 --branch $OCLINT_TAG https://github.com/oclint/oclint.git oclint
 
 cd oclint/oclint-scripts
