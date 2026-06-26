@@ -12,5 +12,15 @@ cd oclint/oclint-scripts
 ./make
 
 cd ..
+
+cp -r build/llvm-install /usr/local/llvm
+
 cp -r build/oclint-release/lib/* /usr/local/lib/
 cp -r build/oclint-release/bin/* /usr/local/bin/
+cp -r build/oclint-core/lib/* /usr/local/lib/
+cp -r build/oclint-metrics/lib/* /usr/local/lib/
+cp -r build/oclint-rules/lib/* /usr/local/lib/
+
+cp -r oclint-core/include/* /usr/local/include/
+cp -r oclint-metrics/include/* /usr/local/include/
+cp -r oclint-rules/include/* /usr/local/include/
