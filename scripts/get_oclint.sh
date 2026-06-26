@@ -9,7 +9,7 @@ OCLINT_TAG=v26.02
 git clone --single-branch --depth 1 --branch $OCLINT_TAG https://github.com/oclint/oclint.git oclint
 
 cd oclint/oclint-scripts
-./makeWithSystemLLVM $(llvm-config-21 --libdir)
+./makeWithSystemLLVM /usr/lib/llvm-21/
 
 cd ..
 
