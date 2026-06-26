@@ -13,7 +13,7 @@ cd oclint/oclint-scripts
 
 cd ..
 
-cp -r build/llvm-install /usr/local/llvm
+# cp -r build/llvm-install /usr/local/llvm    # no need after build
 
 cp -r build/oclint-release/lib/* /usr/local/lib/
 cp -r build/oclint-release/bin/* /usr/local/bin/
