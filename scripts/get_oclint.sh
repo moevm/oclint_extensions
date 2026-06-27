@@ -11,8 +11,10 @@ git clone --single-branch --depth 1 --branch $OCLINT_TAG https://github.com/ocli
 cd oclint/oclint-scripts
 
 LLVM_PATH=/usr/lib/llvm-21
-./build -llvm-root=$LLVM_PATH -release -clean core metrics driver
-./bundle -llvm-root=$LLVM_PATH -release
+./build -llvm-root=$LLVM_PATH -release -clean core
+./build -llvm-root=$LLVM_PATH -release -clean metrics
+./build -llvm-root=$LLVM_PATH -release -clean driver
+./build -llvm-root=$LLVM_PATH -release -clean reporters
 
 cd ..
 
