@@ -4,6 +4,6 @@ set -e
 
 mkdir build
 cd build
-cmake ../
+cmake ../ -DCMAKE_CXX_FLAGS="-Wl,--default-symver" -DCMAKE_SHARED_LINKER_FLAGS="-Wl,--default-symver"
 cmake --build .
-cmake --install .
+cmake --install . --prefix /usr/local
