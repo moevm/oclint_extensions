@@ -16,6 +16,7 @@ LLVM_PATH=/usr/lib/llvm-21
 ./build -llvm-root=$LLVM_PATH -release -clean driver
 ./build -llvm-root=$LLVM_PATH -release -clean reporters
 
+mkdir -p ../build/oclint-rules/rules.dl
 ./bundle -llvm-root=$LLVM_PATH -release
 
 cd ..
