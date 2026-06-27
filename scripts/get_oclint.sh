@@ -8,6 +8,10 @@ rm -rf oclint
 OCLINT_TAG=v26.02
 git clone --single-branch --depth 1 --branch $OCLINT_TAG https://github.com/oclint/oclint.git oclint
 
+head -n -11 oclint-rules/rules/CMakeLists.txt > temp.txt && mv temp.txt oclint-rules/rules/CMakeLists.txt \
+echo "ADD_RULE_CATEGORY_DIRECTORY(moevmrules)" >> oclint-rules/rules/CMakeLists.txt
+mv rules oclint-rules/rules/moevmrules
+
 cd oclint/oclint-scripts
 
 LLVM_PATH=/usr/lib/llvm-21
