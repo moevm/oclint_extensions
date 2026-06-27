@@ -1,19 +1,23 @@
-CMAKE_MINIMUM_REQUIRED(VERSION 2.13.4)
+CMAKE_MINIMUM_REQUIRED(VERSION 3.5)
 PROJECT(OCLINT_EXTENSIONS)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-SET(LLVM_ROOT ${CMAKE_SOURCE_DIR}/oclint/build/llvm-install)
+SET(LLVM_ROOT /usr/lib/llvm-21)
 
 SET(CMAKE_DISABLE_SOURCE_CHANGES ON)
 SET(CMAKE_DISABLE_IN_SOURCE_BUILD ON)
 set(CMAKE_MACOSX_RPATH ON)
 SET(CMAKE_BUILD_TYPE None)
 
+SET(CMAKE_CXX_STANDARD 17)
+SET(CMAKE_CXX_STANDARD_REQUIRED ON)
+SET(CMAKE_CXX_EXTENSIONS OFF)
+
 IF(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
     SET(CMAKE_CXX_FLAGS "-fcolor-diagnostics")
 ENDIF()
-SET(CMAKE_CXX_FLAGS "-std=c++14 ${CMAKE_CXX_LINKER_FLAGS} -fno-rtti -fPIC ${CMAKE_CXX_FLAGS}")
+SET(CMAKE_CXX_FLAGS "-std=c++17 ${CMAKE_CXX_LINKER_FLAGS} -fno-rtti -fPIC ${CMAKE_CXX_FLAGS}")
 SET(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_CXX_LINKER_FLAGS} -fno-rtti")
 
 IF(OCLINT_BUILD_TYPE STREQUAL "Release")
@@ -24,7 +28,7 @@ ELSE()
     SET(CMAKE_SHARED_LINKER_FLAGS "-g ${CMAKE_SHARED_LINKER_FLAGS}")
 ENDIF()
 
-SET(OCLINT_VERSION_RELEASE "22.02")
+SET(OCLINT_VERSION_RELEASE "26.02")
 
 IF(NOT EXISTS ${LLVM_ROOT}/include/llvm)
     MESSAGE(FATAL_ERROR "LLVM_ROOT (${LLVM_ROOT}) is not a valid LLVM install. Could not find ${LLVM_ROOT}/include/llvm")
@@ -107,20 +111,11 @@ IF(DOC_GEN_BUILD)
 ENDIF()
 
 
-
-
 INCLUDE_DIRECTORIES(
-    ${CMAKE_SOURCE_DIR}/oclint/oclint-core/include
-    ${CMAKE_SOURCE_DIR}/oclint/oclint-metrics/include
-    ${CMAKE_SOURCE_DIR}/oclint/oclint-rules/include
-    ${CMAKE_SOURCE_DIR}/oclint/oclint-rules
+    /usr/local/include/
     )
 LINK_DIRECTORIES(
-    ${CMAKE_SOURCE_DIR}/oclint/build/oclint-core/lib
-    ${CMAKE_SOURCE_DIR}/oclint/build/oclint-metrics/lib
-    ${CMAKE_SOURCE_DIR}/oclint/build/oclint-rules/lib/helper
-    ${CMAKE_SOURCE_DIR}/oclint/build/oclint-rules/lib/util
-    ${CMAKE_SOURCE_DIR}/oclint/build/oclint-rules/lib
+    /usr/local/lib/
     )
 
 MACRO(build_dynamic_rule name)
