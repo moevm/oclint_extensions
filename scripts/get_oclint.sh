@@ -13,6 +13,18 @@ cd oclint
 head -n -11 oclint-rules/rules/CMakeLists.txt > temp.txt && mv temp.txt oclint-rules/rules/CMakeLists.txt
 echo "ADD_RULE_CATEGORY_DIRECTORY(moevmrules)" >> oclint-rules/rules/CMakeLists.txt
 mv ../rules oclint-rules/rules/moevmrules
+cat >> oclint-rules/rules/moevmrules/CMakeLists.txt << 'EOF'
+SET(LIST_OF_RULES
+    TooLongIfSequence
+    MallocSizeof
+    StringCompare
+    GlobalVariable
+    OnlyMainFunction
+    TooComplexCondition
+    )
+
+BUILD_DYNAMIC_RULES("${LIST_OF_RULES}")
+EOF
 
 cd oclint-scripts
 
