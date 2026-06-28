@@ -12,6 +12,8 @@ cd oclint
 
 head -n -11 oclint-rules/rules/CMakeLists.txt > temp.txt && mv temp.txt oclint-rules/rules/CMakeLists.txt
 echo "ADD_RULE_CATEGORY_DIRECTORY(moevmrules)" >> oclint-rules/rules/CMakeLists.txt
+sed -i 's/SET(CMAKE_SHARED_LINKER_FLAGS[[:space:]]*"-undefined dynamic_lookup")/SET(CMAKE_SHARED_LINKER_FLAGS "-undefined dynamic_lookup -fno-rtti -Wl,--default-symver")/g' oclint-rules/rules/CMakeLists.txt
+
 mv ../rules oclint-rules/rules/moevmrules
 cat >> oclint-rules/rules/moevmrules/CMakeLists.txt << 'EOF'
 SET(LIST_OF_RULES
