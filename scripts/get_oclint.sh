@@ -8,7 +8,9 @@ rm -rf oclint
 OCLINT_TAG=v26.02
 git clone --single-branch --depth 1 --branch $OCLINT_TAG https://github.com/oclint/oclint.git oclint
 
-cd oclint/oclint-scripts
+cd oclint
+git clone https://github.com/oclint/oclint-json-compilation-database.git 
+cd oclint-scripts
 ./makeWithSystemLLVM /usr/lib/llvm-21/
 
 cd ..
