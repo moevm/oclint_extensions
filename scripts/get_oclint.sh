@@ -17,12 +17,7 @@ mv ../rules oclint-rules/rules/moevmrules
 cd oclint-scripts
 
 LLVM_PATH=/usr/lib/llvm-21
-./build -llvm-root=$LLVM_PATH -release -clean core
-./build -llvm-root=$LLVM_PATH -release -clean metrics
-./build -llvm-root=$LLVM_PATH -release -clean driver
-./build -llvm-root=$LLVM_PATH -release -clean reporters
-
-mkdir -p ../build/oclint-rules/rules.dl
+./build -llvm-root=$LLVM_PATH -release -clean
 ./bundle -llvm-root=$LLVM_PATH -release
 
 cd ..
