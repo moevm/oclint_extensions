@@ -10,7 +10,7 @@ git clone --single-branch --depth 1 --branch $OCLINT_TAG https://github.com/ocli
 
 cd oclint
 
-head -n -11 oclint-rules/rules/CMakeLists.txt > temp.txt && mv temp.txt oclint-rules/rules/CMakeLists.txt \
+head -n -11 oclint-rules/rules/CMakeLists.txt > temp.txt && mv temp.txt oclint-rules/rules/CMakeLists.txt
 echo "ADD_RULE_CATEGORY_DIRECTORY(moevmrules)" >> oclint-rules/rules/CMakeLists.txt
 mv rules oclint-rules/rules/moevmrules
 
